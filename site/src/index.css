@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import 'tailwind-hitslop';
+@import '../../index.css';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
