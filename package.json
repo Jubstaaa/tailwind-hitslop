@@ -1,6 +1,6 @@
 {
     "name": "tailwind-hitslop",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Hit-slop utilities for Tailwind CSS v4 — invisible expanded touch targets, like React Native's hitSlop.",
     "license": "MIT",
     "author": "İlker Balcılar",
