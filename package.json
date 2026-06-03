@@ -8,6 +8,8 @@
         "type": "git",
         "url": "https://github.com/ilkerbalcilar/tailwindcss-hitslop"
     },
+    "homepage": "https://tailwindcss-hitslop.vercel.app",
+    "bugs": "https://github.com/ilkerbalcilar/tailwindcss-hitslop/issues",
     "style": "./index.css",
     "exports": {
         ".": {
