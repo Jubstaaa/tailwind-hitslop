@@ -1,0 +1,34 @@
+/*
+ * tailwindcss-hitslop — hit-slop utilities for Tailwind CSS v4
+ * Invisible expanded touch targets; visual size stays unchanged.
+ *
+ * Usage:
+ *   @import 'tailwindcss';
+ *   @import 'tailwindcss-hitslop';
+ *
+ * Gotchas (full list in README):
+ *   - An ancestor with overflow:hidden silently clips the slop. Verify with hit-slop-debug.
+ *   - The main family renders via ::before. If ::before is taken, use hit-slop-after-*.
+ *   - WCAG 2.5.8 audits measure the rendered box; hit-slop improves tap ergonomics,
+ *     not audit results. Combine with min-h-* / min-w-* when compliance matters.
+ */
+
+/* ────────────────────────── main family (::before) ────────────────────────── */
+
+@utility hit-slop {
+    position: relative;
+    --tw-hit-slop-t: --spacing(2);
+    --tw-hit-slop-r: --spacing(2);
+    --tw-hit-slop-b: --spacing(2);
+    --tw-hit-slop-l: --spacing(2);
+    &::before {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
