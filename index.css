@@ -154,3 +154,145 @@
         pointer-events: inherit;
     }
 }
+
+/* ──────────────── fallback family (::after) — for elements whose ::before is taken ──────────────── */
+
+@utility hit-slop-after {
+    position: relative;
+    --tw-hit-slop-after-t: --spacing(2);
+    --tw-hit-slop-after-r: --spacing(2);
+    --tw-hit-slop-after-b: --spacing(2);
+    --tw-hit-slop-after-l: --spacing(2);
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-after-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-after-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-after-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-after-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-after-* {
+    position: relative;
+    --tw-hit-slop-after-t: --spacing(--value(number));
+    --tw-hit-slop-after-r: --spacing(--value(number));
+    --tw-hit-slop-after-b: --spacing(--value(number));
+    --tw-hit-slop-after-l: --spacing(--value(number));
+    --tw-hit-slop-after-t: --value(--hit-slop-*, [length]);
+    --tw-hit-slop-after-r: --value(--hit-slop-*, [length]);
+    --tw-hit-slop-after-b: --value(--hit-slop-*, [length]);
+    --tw-hit-slop-after-l: --value(--hit-slop-*, [length]);
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-after-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-after-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-after-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-after-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-after-t-* {
+    position: relative;
+    --tw-hit-slop-after-t: --spacing(--value(number));
+    --tw-hit-slop-after-t: --value(--hit-slop-*, [length]);
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-after-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-after-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-after-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-after-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-after-r-* {
+    position: relative;
+    --tw-hit-slop-after-r: --spacing(--value(number));
+    --tw-hit-slop-after-r: --value(--hit-slop-*, [length]);
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-after-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-after-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-after-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-after-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-after-b-* {
+    position: relative;
+    --tw-hit-slop-after-b: --spacing(--value(number));
+    --tw-hit-slop-after-b: --value(--hit-slop-*, [length]);
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-after-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-after-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-after-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-after-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-after-l-* {
+    position: relative;
+    --tw-hit-slop-after-l: --spacing(--value(number));
+    --tw-hit-slop-after-l: --value(--hit-slop-*, [length]);
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-after-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-after-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-after-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-after-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-after-x-* {
+    position: relative;
+    --tw-hit-slop-after-l: --spacing(--value(number));
+    --tw-hit-slop-after-r: --spacing(--value(number));
+    --tw-hit-slop-after-l: --value(--hit-slop-*, [length]);
+    --tw-hit-slop-after-r: --value(--hit-slop-*, [length]);
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-after-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-after-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-after-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-after-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-after-y-* {
+    position: relative;
+    --tw-hit-slop-after-t: --spacing(--value(number));
+    --tw-hit-slop-after-b: --spacing(--value(number));
+    --tw-hit-slop-after-t: --value(--hit-slop-*, [length]);
+    --tw-hit-slop-after-b: --value(--hit-slop-*, [length]);
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-after-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-after-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-after-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-after-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}

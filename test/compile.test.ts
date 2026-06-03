@@ -116,3 +116,30 @@ describe('directional and axis utilities', () => {
         }
     })
 })
+
+describe('hit-slop-after-* fallback family', () => {
+    it('renders via ::after with its own private vars', async () => {
+        const css = await compileWith(['hit-slop-after-2'])
+        const r = rule(css, '.hit-slop-after-2')
+        expect(r).toContain('::after')
+        expect(r).not.toContain('::before')
+        expect(r).toContain('--tw-hit-slop-after-t: calc(var(--spacing) * 2)')
+        expect(r).toContain('top: calc(var(--tw-hit-slop-after-t, 0px) * -1)')
+    })
+
+    it('coexists with the ::before family on one element without var clobbering', async () => {
+        const css = await compileWith(['hit-slop-2', 'hit-slop-after-4'])
+        const before = rule(css, '.hit-slop-2')
+        const after = rule(css, '.hit-slop-after-4')
+        expect(before).toContain('--tw-hit-slop-t: calc(var(--spacing) * 2)')
+        expect(after).toContain('--tw-hit-slop-after-t: calc(var(--spacing) * 4)')
+        expect(after).not.toContain('--tw-hit-slop-t:')
+    })
+
+    it('ships bare default and directional forms', async () => {
+        const css = await compileWith(['hit-slop-after', 'hit-slop-after-x-1', 'hit-slop-after-t-[6px]'])
+        expect(rule(css, '.hit-slop-after ')).toContain('--tw-hit-slop-after-t: calc(var(--spacing) * 2)')
+        expect(rule(css, '.hit-slop-after-x-1')).toContain('--tw-hit-slop-after-l: calc(var(--spacing) * 1)')
+        expect(rule(css, '.hit-slop-after-t-\\[6px\\]')).toContain('--tw-hit-slop-after-t: 6px')
+    })
+})
