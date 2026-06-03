@@ -51,7 +51,7 @@ function TapPanel({ accent = false, slopClassName = '', title }: TapPanelProps) 
                 {Array.from({ length: 14 }, (_, index) => (
                     <button
                         key={index}
-                        className={`size-3 rounded-full bg-zinc-600 transition-all duration-100 hover:scale-125 hover:bg-blue-400 active:scale-150 active:bg-blue-300 active:ring-4 active:ring-blue-400/30 ${slopClassName}`}
+                        className={`size-3 cursor-crosshair rounded-full bg-zinc-600 transition-all duration-100 hover:scale-125 hover:bg-blue-400 active:scale-150 active:bg-blue-300 active:ring-4 active:ring-blue-400/30 ${slopClassName}`}
                         onClick={handleHit}
                     />
                 ))}
