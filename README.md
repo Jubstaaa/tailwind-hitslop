@@ -1,10 +1,16 @@
 # tailwind-hitslop
 
+[![npm](https://img.shields.io/npm/v/tailwind-hitslop)](https://www.npmjs.com/package/tailwind-hitslop)
+[![ci](https://github.com/Jubstaaa/tailwind-hitslop/actions/workflows/ci.yml/badge.svg)](https://github.com/Jubstaaa/tailwind-hitslop/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/tailwind-hitslop)](./LICENSE)
+
 Hit-slop utilities for Tailwind CSS v4 — invisibly expand an element's touch
 area while its visual size stays exactly the same. The web equivalent of React
 Native's [`hitSlop`](https://reactnative.dev/docs/touchable-without-feedback#hitslop).
 
 Pure CSS. Zero JavaScript. Zero config.
+
+**[Live demo →](https://tailwind-hitslop.vercel.app)**
 
 ```html
 <button class="pointer-coarse:hit-slop-2">
@@ -68,6 +74,28 @@ Define tokens in the `--hit-slop-*` namespace and matching classes appear:
 
 No tokens defined → no named classes generated. Numbers and arbitrary values
 always work.
+
+### Touch-first setup (optional)
+
+Utilities apply on every pointer by default — a mouse user benefits from a
+forgiving click area too. If you want slop only on touch devices across your
+project without repeating `pointer-coarse:` everywhere, define a short custom
+variant once:
+
+```css
+@custom-variant touch {
+    @media (any-pointer: coarse) {
+        @slot;
+    }
+}
+```
+
+```html
+<button class="touch:hit-slop-2">only when a coarse pointer exists</button>
+```
+
+`any-pointer: coarse` also covers touchscreen laptops; use `pointer: coarse`
+instead if you only care about touch-primary devices.
 
 ## How much slop, when?
 
