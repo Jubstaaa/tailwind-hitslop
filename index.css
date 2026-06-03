@@ -1,10 +1,10 @@
 /*
- * tailwindcss-hitslop — hit-slop utilities for Tailwind CSS v4
+ * tailwind-hitslop — hit-slop utilities for Tailwind CSS v4
  * Invisible expanded touch targets; visual size stays unchanged.
  *
  * Usage:
  *   @import 'tailwindcss';
- *   @import 'tailwindcss-hitslop';
+ *   @import 'tailwind-hitslop';
  *
  * Gotchas (full list in README):
  *   - An ancestor with overflow:hidden silently clips the slop. Verify with hit-slop-debug.

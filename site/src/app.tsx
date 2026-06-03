@@ -17,7 +17,7 @@ export default function App() {
             <footer className='mx-auto max-w-4xl px-6 py-12 text-center text-sm text-zinc-600'>
                 <a
                     className='hit-slop-2 hover:text-zinc-400'
-                    href='https://github.com/Jubstaaa/tailwindcss-hitslop'
+                    href='https://github.com/Jubstaaa/tailwind-hitslop'
                 >
                     GitHub
                 </a>

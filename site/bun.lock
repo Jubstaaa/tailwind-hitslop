@@ -8,8 +8,8 @@
         "@tailwindcss/vite": "^4.3.0",
         "react": "^19.2.6",
         "react-dom": "^19.2.6",
+        "tailwind-hitslop": "file:..",
         "tailwindcss": "^4.3.0",
-        "tailwindcss-hitslop": "file:..",
       },
       "devDependencies": {
         "@eslint/js": "^10.0.1",
@@ -434,9 +434,9 @@
 
     "std-env": ["std-env@4.1.0", "", {}, "sha512-Rq7ybcX2RuC55r9oaPVEW7/xu3tj8u4GeBYHBWCychFtzMIr86A7e3PPEBPT37sHStKX3+TiX/Fr/ACmJLVlLQ=="],
 
-    "tailwindcss": ["tailwindcss@4.3.0", "", {}, "sha512-y6nxMGB1nMW9R6k96e5gdIFzcfL/gTJRNaqGes1YvkLnPVXzWgbqFF2yLC0T8G774n24cx3Pe8XrKoniCOAH+Q=="],
+    "tailwind-hitslop": ["tailwind-hitslop@file:..", { "devDependencies": { "@tailwindcss/node": "^4.3.0", "typescript": "^6.0.3", "vitest": "^4.1.8" }, "peerDependencies": { "tailwindcss": "^4.0.0" }, "optionalPeers": ["tailwindcss"] }],
 
-    "tailwindcss-hitslop": ["tailwindcss-hitslop@file:..", { "devDependencies": { "@tailwindcss/node": "^4.3.0", "typescript": "^6.0.3", "vitest": "^4.1.8" }, "peerDependencies": { "tailwindcss": "^4.0.0" }, "optionalPeers": ["tailwindcss"] }],
+    "tailwindcss": ["tailwindcss@4.3.0", "", {}, "sha512-y6nxMGB1nMW9R6k96e5gdIFzcfL/gTJRNaqGes1YvkLnPVXzWgbqFF2yLC0T8G774n24cx3Pe8XrKoniCOAH+Q=="],
 
     "tapable": ["tapable@2.3.3", "", {}, "sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A=="],
 

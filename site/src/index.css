@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import 'tailwindcss-hitslop';
+@import 'tailwind-hitslop';
 
 @source inline('hit-slop-{0,1,2,3,4,5,6}');
 @source inline('hit-slop-{t,r,b,l,x,y}-{0,1,2,3,4,5,6}');

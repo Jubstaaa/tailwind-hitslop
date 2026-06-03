@@ -14,7 +14,7 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "tailwindcss": "^4.3.0",
-    "tailwindcss-hitslop": "file:.."
+    "tailwind-hitslop": "file:.."
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

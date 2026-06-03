@@ -8,7 +8,7 @@ export default function Hero() {
     return (
         <section className='mx-auto max-w-3xl px-6 pt-24 pb-16 text-center'>
             <h1 className='text-4xl font-bold tracking-tight sm:text-5xl'>
-                tailwindcss-<span className='text-blue-400'>hitslop</span>
+                tailwind-<span className='text-blue-400'>hitslop</span>
             </h1>
             <p className='mx-auto mt-4 max-w-xl text-lg text-zinc-400'>
                 Invisible expanded touch targets for Tailwind CSS v4. Visual size stays the same — the tap area grows. Like React Native's <code className='rounded bg-zinc-800 px-1.5 py-0.5 text-sm'>hitSlop</code>, zero JavaScript.

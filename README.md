@@ -1,4 +1,4 @@
-# tailwindcss-hitslop
+# tailwind-hitslop
 
 Hit-slop utilities for Tailwind CSS v4 — invisibly expand an element's touch
 area while its visual size stays exactly the same. The web equivalent of React
@@ -15,14 +15,14 @@ Pure CSS. Zero JavaScript. Zero config.
 ## Install
 
 ```bash
-npm install tailwindcss-hitslop
+npm install tailwind-hitslop
 # or
-bun add tailwindcss-hitslop
+bun add tailwind-hitslop
 ```
 
 ```css
 @import 'tailwindcss';
-@import 'tailwindcss-hitslop';
+@import 'tailwind-hitslop';
 ```
 
 ## Why

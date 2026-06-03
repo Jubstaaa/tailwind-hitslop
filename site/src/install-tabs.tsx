@@ -4,12 +4,12 @@ const TABS = [
     {
         id: 'bun',
         label: 'bun',
-        code: "bun add tailwindcss-hitslop\n\n/* app.css */\n@import 'tailwindcss';\n@import 'tailwindcss-hitslop';",
+        code: "bun add tailwind-hitslop\n\n/* app.css */\n@import 'tailwindcss';\n@import 'tailwind-hitslop';",
     },
     {
         id: 'npm',
         label: 'npm',
-        code: "npm install tailwindcss-hitslop\n\n/* app.css */\n@import 'tailwindcss';\n@import 'tailwindcss-hitslop';",
+        code: "npm install tailwind-hitslop\n\n/* app.css */\n@import 'tailwindcss';\n@import 'tailwind-hitslop';",
     },
 ] as const
 
