@@ -13,7 +13,7 @@ async function compileWith(candidates: string[], extraCss = '') {
 }
 
 function rule(css: string, selector: string) {
-    const start = css.indexOf(selector)
+    const start = css.indexOf(`${selector} {`)
     if (start === -1) return null
     const open = css.indexOf('{', start)
     let depth = 1
@@ -138,7 +138,7 @@ describe('hit-slop-after-* fallback family', () => {
 
     it('ships bare default and directional forms', async () => {
         const css = await compileWith(['hit-slop-after', 'hit-slop-after-x-1', 'hit-slop-after-t-[6px]'])
-        expect(rule(css, '.hit-slop-after ')).toContain('--tw-hit-slop-after-t: calc(var(--spacing) * 2)')
+        expect(rule(css, '.hit-slop-after')).toContain('--tw-hit-slop-after-t: calc(var(--spacing) * 2)')
         expect(rule(css, '.hit-slop-after-x-1')).toContain('--tw-hit-slop-after-l: calc(var(--spacing) * 1)')
         expect(rule(css, '.hit-slop-after-t-\\[6px\\]')).toContain('--tw-hit-slop-after-t: 6px')
     })
