@@ -143,3 +143,21 @@ describe('hit-slop-after-* fallback family', () => {
         expect(rule(css, '.hit-slop-after-t-\\[6px\\]')).toContain('--tw-hit-slop-after-t: 6px')
     })
 })
+
+describe('debug utilities', () => {
+    it('hit-slop-debug paints the ::before area', async () => {
+        const css = await compileWith(['hit-slop-debug'])
+        const r = rule(css, '.hit-slop-debug')
+        expect(r).toContain('::before')
+        expect(r).toContain('outline')
+        expect(r).toContain('dashed')
+        expect(r).toContain('background-color')
+    })
+
+    it('hit-slop-after-debug paints the ::after area', async () => {
+        const css = await compileWith(['hit-slop-after-debug'])
+        const r = rule(css, '.hit-slop-after-debug')
+        expect(r).toContain('::after')
+        expect(r).not.toContain('::before')
+    })
+})

@@ -296,3 +296,21 @@
         pointer-events: inherit;
     }
 }
+
+/* ──────────────── debug — visualize the expanded hit areas ──────────────── */
+
+@utility hit-slop-debug {
+    &::before {
+        background-color: rgb(59 130 246 / 0.15);
+        outline: 1.5px dashed rgb(59 130 246 / 0.6);
+        outline-offset: -1.5px;
+    }
+}
+
+@utility hit-slop-after-debug {
+    &::after {
+        background-color: rgb(59 130 246 / 0.15);
+        outline: 1.5px dashed rgb(59 130 246 / 0.6);
+        outline-offset: -1.5px;
+    }
+}
