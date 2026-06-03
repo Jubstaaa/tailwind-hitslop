@@ -1,3 +1,6 @@
+import { BookText } from 'lucide-react'
+import SectionHeading from './section-heading'
+
 const ROWS = [
     ['hit-slop', '8px on all sides (--spacing(2) default)'],
     ['hit-slop-<n>', 'spacing scale — hit-slop-2 = 8px, fractionals like 3.5 work'],
@@ -11,13 +14,13 @@ const ROWS = [
 
 export default function ApiReference() {
     return (
-        <section className='mx-auto max-w-3xl px-6 py-16'>
-            <h2 className='text-2xl font-semibold'>API</h2>
-            <div className='mt-6 overflow-hidden rounded-xl border border-zinc-800'>
-                {ROWS.map(([cls, description]) => (
+        <section className='mx-auto max-w-3xl px-6 py-20'>
+            <SectionHeading index='04 / reference' icon={BookText} title='API' />
+            <div className='overflow-hidden rounded-xl border border-zinc-800'>
+                {ROWS.map(([cls, description], index) => (
                     <div
                         key={cls}
-                        className='grid gap-1 border-b border-zinc-800/60 px-5 py-3 last:border-0 sm:grid-cols-[1fr_1.2fr] sm:gap-6'
+                        className={`grid gap-1 px-5 py-3.5 transition-colors hover:bg-zinc-900/60 sm:grid-cols-[1fr_1.2fr] sm:gap-6 ${index === ROWS.length - 1 ? '' : 'border-b border-zinc-800/60'}`}
                     >
                         <code className='font-mono text-sm text-blue-300'>{cls}</code>
                         <span className='text-sm text-zinc-400'>{description}</span>
@@ -25,7 +28,7 @@ export default function ApiReference() {
                 ))}
             </div>
             <p className='mt-4 text-sm text-zinc-500'>
-                Optional theme tokens: define <code className='rounded bg-zinc-800 px-1 py-0.5'>--hit-slop-row: 6px</code> in <code className='rounded bg-zinc-800 px-1 py-0.5'>@theme</code> and <code className='rounded bg-zinc-800 px-1 py-0.5'>hit-slop-row</code> exists.
+                Optional theme tokens: define <code className='rounded bg-zinc-800 px-1 py-0.5 font-mono'>--hit-slop-row: 6px</code> in <code className='rounded bg-zinc-800 px-1 py-0.5 font-mono'>@theme</code> and <code className='rounded bg-zinc-800 px-1 py-0.5 font-mono'>hit-slop-row</code> exists.
             </p>
         </section>
     )

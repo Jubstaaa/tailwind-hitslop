@@ -1,4 +1,10 @@
+import { Check, Copy, SlidersHorizontal } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Slider } from '@/components/ui/slider'
+import { Switch } from '@/components/ui/switch'
+import SectionHeading from './section-heading'
 
 const SIDES = ['t', 'r', 'b', 'l'] as const
 
@@ -31,49 +37,51 @@ export default function Playground() {
     }, [classString])
 
     return (
-        <section className='mx-auto max-w-4xl px-6 py-16'>
-            <h2 className='text-2xl font-semibold'>Playground</h2>
-            <div className='mt-8 grid gap-10 md:grid-cols-[1fr_auto]'>
-                <div className='space-y-5'>
+        <section className='mx-auto max-w-4xl px-6 py-20'>
+            <SectionHeading index='03 / playground' icon={SlidersHorizontal} title='Playground'>
+                Drag a side and watch the class string build itself. Toggle the debug overlay to x-ray the tap area.
+            </SectionHeading>
+            <div className='grid gap-10 md:grid-cols-[1fr_auto]'>
+                <div className='space-y-6'>
                     {SIDES.map(side => (
-                        <label key={side} className='flex items-center gap-4 text-sm'>
-                            <span className='w-16 font-mono text-zinc-400'>{side}</span>
-                            <input
-                                type='range'
+                        <div key={side} className='flex items-center gap-4 text-sm'>
+                            <span className='w-6 font-mono text-zinc-400'>{side}</span>
+                            <Slider
                                 min={0}
                                 max={24}
                                 step={4}
-                                value={values[side]}
-                                className='flex-1 accent-blue-500'
-                                onChange={event =>
-                                    setValues(current => ({ ...current, [side]: Number(event.target.value) }))
+                                value={[values[side]]}
+                                className='flex-1'
+                                onValueChange={([next]) =>
+                                    setValues(current => ({ ...current, [side]: next }))
                                 }
                             />
                             <span className='w-12 text-right font-mono text-zinc-500'>{values[side]}px</span>
-                        </label>
+                        </div>
                     ))}
-                    <label className='flex cursor-pointer items-center gap-2 text-sm text-zinc-400'>
-                        <input
-                            type='checkbox'
-                            checked={debug}
-                            onChange={event => setDebug(event.target.checked)}
-                        />
+                    <label className='flex cursor-pointer items-center gap-3 pt-1 text-sm text-zinc-400'>
+                        <Switch checked={debug} onCheckedChange={setDebug} />
                         debug overlay
                     </label>
                 </div>
-                <div className='grid min-h-48 min-w-56 place-items-center rounded-2xl border border-zinc-800 bg-zinc-900/50'>
+                <Card className='relative grid min-h-48 min-w-56 place-items-center border-dashed border-zinc-800 bg-zinc-900/40 ring-0'>
                     <button
-                        className={`rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white ${classString} ${debug ? 'hit-slop-debug' : ''}`}
+                        className={`rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-blue-400 active:scale-90 active:bg-blue-600 ${classString} ${debug ? 'hit-slop-debug' : ''}`}
                     >
                         tap me
                     </button>
-                </div>
+                </Card>
             </div>
-            <div className='mt-8 flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3 font-mono text-sm'>
-                <code className='flex-1 text-blue-300'>{classString}</code>
-                <button className='hit-slop-2 text-zinc-400 hover:text-zinc-100' onClick={handleCopy}>
-                    {copied ? 'copied!' : 'copy'}
-                </button>
+            <div className='mt-8 flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3'>
+                <code className='flex-1 font-mono text-sm text-blue-300'>{classString}</code>
+                <Button
+                    variant='ghost'
+                    size='icon-sm'
+                    className='hit-slop-2 text-zinc-400 transition-all hover:text-zinc-100 active:scale-90'
+                    onClick={handleCopy}
+                >
+                    {copied ? <Check className='text-blue-400' /> : <Copy />}
+                </Button>
             </div>
         </section>
     )

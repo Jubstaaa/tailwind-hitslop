@@ -1,4 +1,8 @@
-import { useState } from 'react'
+import { Check, Copy, Terminal } from 'lucide-react'
+import { useCallback, useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import SectionHeading from './section-heading'
 
 const TABS = [
     {
@@ -15,26 +19,49 @@ const TABS = [
 
 export default function InstallTabs() {
     const [active, setActive] = useState<(typeof TABS)[number]['id']>('bun')
+    const [copied, setCopied] = useState(false)
 
     const current = TABS.find(tab => tab.id === active)!
 
+    const handleCopy = useCallback(async () => {
+        await navigator.clipboard.writeText(current.code)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 1500)
+    }, [current.code])
+
     return (
-        <section className='mx-auto max-w-3xl px-6 py-16'>
-            <h2 className='text-2xl font-semibold'>Install</h2>
-            <div className='mt-6 flex gap-1 rounded-lg bg-zinc-900 p-1'>
+        <section className='mx-auto max-w-3xl px-6 py-20'>
+            <SectionHeading index='01 / install' icon={Terminal} title='Install' />
+            <Tabs value={active} onValueChange={value => setActive(value as (typeof TABS)[number]['id'])}>
+                <TabsList className='bg-zinc-900'>
+                    {TABS.map(tab => (
+                        <TabsTrigger
+                            key={tab.id}
+                            className='hit-slop-y-1 font-mono active:scale-95'
+                            value={tab.id}
+                        >
+                            {tab.label}
+                        </TabsTrigger>
+                    ))}
+                </TabsList>
                 {TABS.map(tab => (
-                    <button
-                        key={tab.id}
-                        className={`hit-slop-y-1 flex-1 rounded-md px-3 py-1.5 text-sm transition-colors ${active === tab.id ? 'bg-zinc-700 text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'}`}
-                        onClick={() => setActive(tab.id)}
-                    >
-                        {tab.label}
-                    </button>
+                    <TabsContent key={tab.id} value={tab.id}>
+                        <div className='relative mt-4 overflow-hidden rounded-xl border border-dashed border-zinc-800 bg-zinc-900/60'>
+                            <Button
+                                variant='ghost'
+                                size='icon-sm'
+                                className='hit-slop-2 absolute top-3 right-3 text-zinc-400 transition-all hover:text-zinc-100 active:scale-90'
+                                onClick={handleCopy}
+                            >
+                                {copied ? <Check className='text-blue-400' /> : <Copy />}
+                            </Button>
+                            <pre className='overflow-x-auto p-5 pr-14 font-mono text-sm leading-relaxed text-zinc-300'>
+                                {tab.code}
+                            </pre>
+                        </div>
+                    </TabsContent>
                 ))}
-            </div>
-            <pre className='mt-3 overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900 p-5 text-sm leading-relaxed text-zinc-300'>
-                {current.code}
-            </pre>
+            </Tabs>
         </section>
     )
 }
