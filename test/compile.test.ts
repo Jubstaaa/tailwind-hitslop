@@ -161,3 +161,22 @@ describe('debug utilities', () => {
         expect(r).not.toContain('::before')
     })
 })
+
+describe('core variant composition', () => {
+    it('wraps in pointer-coarse media query', async () => {
+        const css = await compileWith(['pointer-coarse:hit-slop-2'])
+        expect(css).toContain('@media (pointer: coarse)')
+        expect(css).toContain('--tw-hit-slop-t: calc(var(--spacing) * 2)')
+    })
+
+    it('wraps in hover and breakpoint variants', async () => {
+        const css = await compileWith(['hover:hit-slop-3', 'md:hit-slop-2'])
+        expect(css).toContain('@media (hover: hover)')
+        expect(css).toContain('@media (width >= 48rem)')
+    })
+
+    it('emits nothing for negative or junk candidates', async () => {
+        const css = await compileWith(['-hit-slop-2', 'hit-slop-junk!!'])
+        expect(css).not.toContain('hit-slop')
+    })
+})
