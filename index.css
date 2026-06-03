@@ -54,3 +54,103 @@
         pointer-events: inherit;
     }
 }
+
+@utility hit-slop-t-* {
+    position: relative;
+    --tw-hit-slop-t: --spacing(--value(number));
+    --tw-hit-slop-t: --value(--hit-slop-*, [length]);
+    &::before {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-r-* {
+    position: relative;
+    --tw-hit-slop-r: --spacing(--value(number));
+    --tw-hit-slop-r: --value(--hit-slop-*, [length]);
+    &::before {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-b-* {
+    position: relative;
+    --tw-hit-slop-b: --spacing(--value(number));
+    --tw-hit-slop-b: --value(--hit-slop-*, [length]);
+    &::before {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-l-* {
+    position: relative;
+    --tw-hit-slop-l: --spacing(--value(number));
+    --tw-hit-slop-l: --value(--hit-slop-*, [length]);
+    &::before {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-x-* {
+    position: relative;
+    --tw-hit-slop-l: --spacing(--value(number));
+    --tw-hit-slop-r: --spacing(--value(number));
+    --tw-hit-slop-l: --value(--hit-slop-*, [length]);
+    --tw-hit-slop-r: --value(--hit-slop-*, [length]);
+    &::before {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}
+
+@utility hit-slop-y-* {
+    position: relative;
+    --tw-hit-slop-t: --spacing(--value(number));
+    --tw-hit-slop-b: --spacing(--value(number));
+    --tw-hit-slop-t: --value(--hit-slop-*, [length]);
+    --tw-hit-slop-b: --value(--hit-slop-*, [length]);
+    &::before {
+        content: '';
+        position: absolute;
+        top: calc(var(--tw-hit-slop-t, 0px) * -1);
+        right: calc(var(--tw-hit-slop-r, 0px) * -1);
+        bottom: calc(var(--tw-hit-slop-b, 0px) * -1);
+        left: calc(var(--tw-hit-slop-l, 0px) * -1);
+        border-radius: inherit;
+        pointer-events: inherit;
+    }
+}

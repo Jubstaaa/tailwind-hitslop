@@ -84,3 +84,35 @@ describe('functional hit-slop-*', () => {
         expect(css).not.toContain('.hit-slop-row')
     })
 })
+
+describe('directional and axis utilities', () => {
+    it('sets only its own side var', async () => {
+        const css = await compileWith(['hit-slop-t-2'])
+        const r = rule(css, '.hit-slop-t-2')
+        expect(r).toContain('--tw-hit-slop-t: calc(var(--spacing) * 2)')
+        expect(r).not.toContain('--tw-hit-slop-b:')
+        expect(r).not.toContain('--tw-hit-slop-l:')
+        expect(r).not.toContain('--tw-hit-slop-r:')
+    })
+
+    it('axis utilities set their two sides and stack with each other', async () => {
+        const css = await compileWith(['hit-slop-x-1', 'hit-slop-y-3'])
+        const x = rule(css, '.hit-slop-x-1')
+        const y = rule(css, '.hit-slop-y-3')
+        expect(x).toContain('--tw-hit-slop-l: calc(var(--spacing) * 1)')
+        expect(x).toContain('--tw-hit-slop-r: calc(var(--spacing) * 1)')
+        expect(x).not.toContain('--tw-hit-slop-t:')
+        expect(y).toContain('--tw-hit-slop-t: calc(var(--spacing) * 3)')
+        expect(y).toContain('--tw-hit-slop-b: calc(var(--spacing) * 3)')
+        expect(y).not.toContain('--tw-hit-slop-l:')
+    })
+
+    it('every directional utility renders the full ::before reading all four vars', async () => {
+        for (const candidate of ['hit-slop-t-2', 'hit-slop-r-2', 'hit-slop-b-2', 'hit-slop-l-2', 'hit-slop-x-2', 'hit-slop-y-2']) {
+            const css = await compileWith([candidate])
+            const r = rule(css, `.${candidate}`)
+            expect(r, candidate).toContain('top: calc(var(--tw-hit-slop-t, 0px) * -1)')
+            expect(r, candidate).toContain('left: calc(var(--tw-hit-slop-l, 0px) * -1)')
+        }
+    })
+})
