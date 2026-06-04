@@ -6,7 +6,7 @@
 
 Hit-slop utilities for Tailwind CSS v4 — invisibly expand an element's touch
 area while its visual size stays exactly the same. The web equivalent of React
-Native's [`hitSlop`](https://reactnative.dev/docs/touchable-without-feedback#hitslop).
+Native's [`hitSlop`](https://reactnative.dev/docs/pressable#hitslop).
 
 Pure CSS. Zero JavaScript. Zero config.
 
@@ -125,7 +125,7 @@ Wrap in `pointer-coarse:` unless you want it on mouse users too.
 
 ## Prior art
 
-- React Native's [`hitSlop`](https://reactnative.dev/docs/touchable-without-feedback#hitslop) — the namesake
+- React Native's [`hitSlop`](https://reactnative.dev/docs/pressable#hitslop) — the namesake
 - Ahmad Shadeed, [Enhancing the Clickable Area Size](https://ishadeed.com/article/clickable-area/)
 - Tailwind core feature request [#18091](https://github.com/tailwindlabs/tailwindcss/issues/18091) — if the core team ever wants this upstream, the CSS is right here
 - Kian Bazza's [hit-area](https://bazza.dev) — a parallel take on the same technique
