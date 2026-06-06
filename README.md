@@ -48,21 +48,21 @@ plugin for `require`. Every utility below works identically on either version.
 ## Why
 
 Small visual targets (16px icons, dense toolbars) are miserable to tap. Making
-them visually bigger isn't always an option. Hit-slop expands the *interactive*
+them visually bigger isn't always an option. Hit-slop expands the _interactive_
 area without touching layout — the [Fitts' Law](https://en.wikipedia.org/wiki/Fitts%27s_law)
 fix designers actually approve.
 
 ## API
 
-| Class | Effect |
-| --- | --- |
-| `hit-slop` | 8px on all sides (`--spacing(2)`) |
-| `hit-slop-<n>` | Spacing scale: `hit-slop-2` = 8px, `hit-slop-3.5` = 14px |
-| `hit-slop-[10px]` | Arbitrary length |
-| `hit-slop-t-*` `-r-*` `-b-*` `-l-*` | Single side |
-| `hit-slop-x-*` `hit-slop-y-*` | Axis — stack freely: `hit-slop-x-1 hit-slop-y-3` |
+| Class                                    | Effect                                                             |
+| ---------------------------------------- | ------------------------------------------------------------------ |
+| `hit-slop`                               | 8px on all sides (`--spacing(2)`)                                  |
+| `hit-slop-<n>`                           | Spacing scale: `hit-slop-2` = 8px, `hit-slop-3.5` = 14px           |
+| `hit-slop-[10px]`                        | Arbitrary length                                                   |
+| `hit-slop-t-*` `-r-*` `-b-*` `-l-*`      | Single side                                                        |
+| `hit-slop-x-*` `hit-slop-y-*`            | Axis — stack freely: `hit-slop-x-1 hit-slop-y-3`                   |
 | `hit-slop-after`, `hit-slop-after-*` ... | Full mirror rendered via `::after` (when your `::before` is taken) |
-| `hit-slop-debug`, `hit-slop-after-debug` | Visualize the expanded areas |
+| `hit-slop-debug`, `hit-slop-after-debug` | Visualize the expanded areas                                       |
 
 All utilities compose with every core variant:
 

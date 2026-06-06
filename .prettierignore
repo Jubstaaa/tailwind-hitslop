@@ -1,0 +1,6 @@
+dist
+node_modules
+site
+.claude
+bun.lock
+*.tgz

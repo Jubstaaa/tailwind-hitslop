@@ -108,7 +108,14 @@ describe('directional and axis utilities', () => {
     })
 
     it('every directional utility renders the full ::before reading all four vars', async () => {
-        for (const candidate of ['hit-slop-t-2', 'hit-slop-r-2', 'hit-slop-b-2', 'hit-slop-l-2', 'hit-slop-x-2', 'hit-slop-y-2']) {
+        for (const candidate of [
+            'hit-slop-t-2',
+            'hit-slop-r-2',
+            'hit-slop-b-2',
+            'hit-slop-l-2',
+            'hit-slop-x-2',
+            'hit-slop-y-2',
+        ]) {
             const css = await compileWith([candidate])
             const r = rule(css, `.${candidate}`)
             expect(r, candidate).toContain('top: calc(var(--tw-hit-slop-t, 0px) * -1)')

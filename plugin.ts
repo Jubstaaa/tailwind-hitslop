@@ -16,7 +16,7 @@ interface RuleObject {
 interface PluginAPI {
     matchUtilities(
         utilities: Record<string, (value: string) => RuleObject>,
-        options?: { values?: Record<string, string>; type?: string[] },
+        options?: { values?: Record<string, string>; type?: string[] }
     ): void
     addUtilities(utilities: Record<string, RuleObject>): void
     theme(path: 'spacing'): Record<string, string>
@@ -74,10 +74,7 @@ function hitSlop({ matchUtilities, addUtilities, theme }: PluginAPI): void {
         for (const [suffix, sides] of Object.entries(SIDES)) {
             const utility = suffix ? `${name}-${suffix}` : name
             const values = suffix ? { ...spacing } : { ...spacing, DEFAULT: theme('spacing.2', '0.5rem') }
-            matchUtilities(
-                { [utility]: (value) => sided(prefix, pseudo, sides, value) },
-                { values, type: ['length'] },
-            )
+            matchUtilities({ [utility]: (value) => sided(prefix, pseudo, sides, value) }, { values, type: ['length'] })
         }
     }
 
