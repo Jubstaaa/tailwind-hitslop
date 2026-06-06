@@ -16,8 +16,8 @@ jobs:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
       - run: bun install --frozen-lockfile
-      - run: bun run test
       - run: bun run build
+      - run: bun run test
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
