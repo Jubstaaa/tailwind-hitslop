@@ -30,7 +30,7 @@ export default function InstallTabs() {
     }, [current.code])
 
     return (
-        <section className='mx-auto max-w-3xl px-6 py-20'>
+        <section className='mx-auto max-w-4xl px-6 py-20'>
             <SectionHeading index='01 / install' icon={Terminal} title='Install' />
             <Tabs value={active} onValueChange={value => setActive(value as (typeof TABS)[number]['id'])}>
                 <TabsList className='bg-zinc-900'>
@@ -62,6 +62,16 @@ export default function InstallTabs() {
                     </TabsContent>
                 ))}
             </Tabs>
+            <div className='mt-6'>
+                <p className='mb-2 text-sm text-zinc-400'>
+                    On Tailwind v3? Skip the CSS import and register the plugin instead — same package:
+                </p>
+                <div className='overflow-hidden rounded-xl border border-dashed border-zinc-800 bg-zinc-900/60'>
+                    <pre className='overflow-x-auto p-5 font-mono text-sm leading-relaxed text-zinc-300'>
+                        {"// tailwind.config.js\nmodule.exports = {\n    plugins: [require('tailwind-hitslop')],\n}"}
+                    </pre>
+                </div>
+            </div>
         </section>
     )
 }

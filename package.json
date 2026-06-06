@@ -1,7 +1,7 @@
 {
     "name": "tailwind-hitslop",
     "version": "0.1.2",
-    "description": "Hit-slop utilities for Tailwind CSS v4 — invisible expanded touch targets, like React Native's hitSlop.",
+    "description": "Hit-slop utilities for Tailwind CSS v4 (and v3 via plugin) — invisible expanded touch targets, like React Native's hitSlop.",
     "license": "MIT",
     "author": "İlker Balcılar",
     "repository": {
@@ -10,21 +10,26 @@
     },
     "homepage": "https://tailwind-hitslop.vercel.app",
     "bugs": "https://github.com/Jubstaaa/tailwind-hitslop/issues",
-    "style": "./index.css",
+    "style": "./dist/index.css",
+    "types": "./dist/plugin.d.ts",
     "exports": {
         ".": {
-            "style": "./index.css",
-            "default": "./index.css"
+            "types": "./dist/plugin.d.ts",
+            "style": "./dist/index.css",
+            "require": "./dist/plugin.js",
+            "import": "./dist/plugin.js",
+            "default": "./dist/index.css"
         }
     },
     "files": [
-        "index.css"
+        "dist"
     ],
     "scripts": {
+        "build": "tsc -p tsconfig.build.json && cp index.css dist/",
         "test": "vitest run"
     },
     "peerDependencies": {
-        "tailwindcss": "^4.0.0"
+        "tailwindcss": "^3.0.0 || ^4.0.0"
     },
     "peerDependenciesMeta": {
         "tailwindcss": {
@@ -43,6 +48,9 @@
     ],
     "devDependencies": {
         "@tailwindcss/node": "^4.3.0",
+        "@types/node": "^24.0.0",
+        "postcss": "^8.5.0",
+        "tailwindcss-v3": "npm:tailwindcss@3.0.0",
         "typescript": "^6.0.3",
         "vitest": "^4.1.8"
     }

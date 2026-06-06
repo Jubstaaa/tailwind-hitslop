@@ -4,9 +4,9 @@
 [![ci](https://github.com/Jubstaaa/tailwind-hitslop/actions/workflows/ci.yml/badge.svg)](https://github.com/Jubstaaa/tailwind-hitslop/actions/workflows/ci.yml)
 [![license](https://img.shields.io/npm/l/tailwind-hitslop)](./LICENSE)
 
-Hit-slop utilities for Tailwind CSS v4 — invisibly expand an element's touch
-area while its visual size stays exactly the same. The web equivalent of React
-Native's [`hitSlop`](https://reactnative.dev/docs/pressable#hitslop).
+Hit-slop utilities for Tailwind CSS v4 (and v3 via plugin) — invisibly expand an
+element's touch area while its visual size stays exactly the same. The web
+equivalent of React Native's [`hitSlop`](https://reactnative.dev/docs/pressable#hitslop).
 
 Pure CSS. Zero JavaScript. Zero config.
 
@@ -26,10 +26,24 @@ npm install tailwind-hitslop
 bun add tailwind-hitslop
 ```
 
+**Tailwind v4** — import the CSS (pure CSS, zero JavaScript):
+
 ```css
 @import 'tailwindcss';
 @import 'tailwind-hitslop';
 ```
+
+**Tailwind v3** — register the plugin:
+
+```js
+// tailwind.config.js
+module.exports = {
+    plugins: [require('tailwind-hitslop')],
+}
+```
+
+Same package name on both — the export map resolves the CSS for `@import` and the
+plugin for `require`. Every utility below works identically on either version.
 
 ## Why
 

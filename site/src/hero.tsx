@@ -11,17 +11,17 @@ export default function Hero() {
         <section className='relative overflow-hidden border-b border-zinc-900'>
             <div className='blueprint-grid pointer-events-none absolute inset-0 opacity-60' />
             <div className='blueprint-glow pointer-events-none absolute inset-x-0 top-0 h-80' />
-            <div className='relative mx-auto max-w-3xl px-6 pt-28 pb-20 text-center'>
+            <div className='relative mx-auto max-w-4xl px-6 pt-28 pb-20 text-center'>
                 <span className='animate-rise inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/70 px-3 py-1 font-mono text-xs text-zinc-400 [animation-delay:0ms]'>
                     <span className='size-1.5 rounded-full bg-blue-500' />
-                    Tailwind CSS v4 · zero JavaScript
+                    Tailwind v3 &amp; v4 · pure CSS
                 </span>
                 <h1 className='animate-rise mt-7 font-display text-5xl font-extrabold tracking-tight text-balance sm:text-6xl [animation-delay:80ms]'>
                     tailwind-<span className='text-blue-500'>hitslop</span>
                 </h1>
                 <p className='animate-rise mx-auto mt-5 max-w-xl text-lg leading-relaxed text-zinc-400 text-balance [animation-delay:160ms]'>
-                    Invisible expanded touch targets for Tailwind CSS v4. Visual size stays the same — the tap area grows. Like React Native's{' '}
-                    <code className='rounded bg-zinc-800/80 px-1.5 py-0.5 font-mono text-sm text-blue-300'>hitSlop</code>, zero JavaScript.
+                    Invisible expanded touch targets for Tailwind CSS v3 &amp; v4. Visual size stays the same — the tap area grows. Like React Native's{' '}
+                    <code className='rounded bg-zinc-800/80 px-1.5 py-0.5 font-mono text-sm text-blue-300'>hitSlop</code>.
                 </p>
                 <div className='animate-rise relative mx-auto mt-12 flex max-w-md items-center justify-center gap-7 rounded-2xl border border-zinc-800 bg-zinc-900/40 px-8 py-12 [animation-delay:240ms]'>
                     <CornerMarks />

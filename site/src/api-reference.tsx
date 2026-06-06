@@ -14,7 +14,7 @@ const ROWS = [
 
 export default function ApiReference() {
     return (
-        <section className='mx-auto max-w-3xl px-6 py-20'>
+        <section className='mx-auto max-w-4xl px-6 py-20'>
             <SectionHeading index='04 / reference' icon={BookText} title='API' />
             <div className='overflow-hidden rounded-xl border border-zinc-800'>
                 {ROWS.map(([cls, description], index) => (
