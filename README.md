@@ -130,10 +130,12 @@ Wrap in `pointer-coarse:` unless you want it on mouse users too.
    family. Both families coexist on one element.
 3. **Adjacent slops overlap.** DOM order decides who wins the overlap zone.
    In dense layouts use `hit-slop-1` and keep real spacing between targets.
-4. **This does not make WCAG audits pass.** WCAG 2.5.8 target-size checks
-   measure the rendered box — an invisible hit area doesn't change that. If
-   you need audit compliance, use `min-h-11 min-w-11`; hit-slop improves
-   real-world ergonomics and combines fine with it.
+4. **This does not make WCAG audits pass — but it won't break them either.**
+   Target-size checks (2.5.8 AA = 24px, 2.5.5 AAA = 44px) measure the _rendered_
+   box; hit-slop only adds an invisible pointer area, so it's purely additive —
+   it won't make a too-small target pass, nor a compliant one fail. Size the
+   visible target for compliance (`min-h-6 min-w-6` for AA, `min-h-11 min-w-11`
+   for AAA), then layer hit-slop on top for tap comfort. They compose cleanly.
 5. **`pointer-events-none` on the host disables the slop too** — by design,
    so disabled buttons don't keep ghost tap areas.
 
