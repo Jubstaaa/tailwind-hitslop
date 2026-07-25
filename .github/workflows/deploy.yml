@@ -22,6 +22,9 @@ jobs:
             - run: bun install --frozen-lockfile
             - run: bun run lint
             - run: bun run typecheck
+            # The plugin tests import dist/plugin.js, so the package has to be
+            # built first — dist/ is gitignored and absent on a fresh checkout.
+            - run: bun run build
             - run: bun run test
 
     deploy:
