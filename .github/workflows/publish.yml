@@ -39,6 +39,26 @@ jobs:
                   test "$TAG" = "$PKG" || {
                     echo "tag v$TAG does not match package.json $PKG"; exit 1;
                   }
-            - run: npm publish --access public --provenance
+            # Fail early and clearly on a version that is already out, rather than
+            # discovering it from npm's E403 after the build has run.
+            - name: Refuse to republish an existing version
+              run: |
+                  VER="$(node -p "require('./package.json').version")"
+                  if npm view "tailwind-hitslop@$VER" version >/dev/null 2>&1; then
+                    echo "tailwind-hitslop@$VER is already published — bump the version"
+                    exit 1
+                  fi
+            # npm can upload the tarball, sign provenance, and *then* fail the run
+            # with E403 "cannot publish over the previously published versions" from
+            # a duplicate follow-up request — which is what happened on 0.2.2. Since
+            # the step above proved the version did not exist beforehand, the
+            # registry serving it now means the publish did land.
+            - name: Publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: |
+                  VER="$(node -p "require('./package.json').version")"
+                  if npm publish --access public --provenance; then exit 0; fi
+                  echo "publish reported failure — checking whether it landed anyway"
+                  sleep 10
+                  test "$(npm view "tailwind-hitslop@$VER" version 2>/dev/null)" = "$VER"
