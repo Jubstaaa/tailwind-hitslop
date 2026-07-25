@@ -8,7 +8,7 @@
         "type": "git",
         "url": "git+https://github.com/Jubstaaa/tailwind-hitslop.git"
     },
-    "homepage": "https://tailwind-hitslop.vercel.app",
+    "homepage": "https://hitslop.ilkerbalcilar.com",
     "bugs": "https://github.com/Jubstaaa/tailwind-hitslop/issues",
     "style": "./dist/index.css",
     "types": "./dist/plugin.d.ts",

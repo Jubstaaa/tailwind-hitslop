@@ -10,7 +10,7 @@ equivalent of React Native's [`hitSlop`](https://reactnative.dev/docs/pressable#
 
 Pure CSS. Zero JavaScript. Zero config.
 
-**[Live demo →](https://tailwind-hitslop.vercel.app)**
+**[Live demo →](https://hitslop.ilkerbalcilar.com)**
 
 ```html
 <button class="pointer-coarse:hit-slop-2">
