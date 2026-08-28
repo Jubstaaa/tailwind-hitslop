@@ -146,6 +146,12 @@ Wrap in `pointer-coarse:` unless you want it on mouse users too.
 - Tailwind core feature request [#18091](https://github.com/tailwindlabs/tailwindcss/issues/18091) — if the core team ever wants this upstream, the CSS is right here
 - Kian Bazza's [hit-area](https://bazza.dev/craft/2026/hit-area) — a parallel take on the same technique
 
+## Sponsorship
+
+If this saved you from hand-rolling pseudo-element tap targets again, you can support the work
+on [GitHub Sponsors](https://github.com/sponsors/Jubstaaa) or
+[Buy Me a Coffee](https://buymeacoffee.com/jubstaa).
+
 ## License
 
 MIT © İlker Balcılar

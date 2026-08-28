@@ -10,6 +10,16 @@
     },
     "homepage": "https://hitslop.ilkerbalcilar.com",
     "bugs": "https://github.com/Jubstaaa/tailwind-hitslop/issues",
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/Jubstaaa"
+        },
+        {
+            "type": "buy_me_a_coffee",
+            "url": "https://buymeacoffee.com/jubstaa"
+        }
+    ],
     "style": "./dist/index.css",
     "types": "./dist/plugin.d.ts",
     "exports": {
