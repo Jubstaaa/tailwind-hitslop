@@ -1,16 +1,43 @@
-name: ci
+name: CI
+
 on:
-    push:
-        branches: [main]
     pull_request:
+    workflow_call:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: ci-${{ github.ref }}-${{ github.workflow }}
+    cancel-in-progress: true
+
 jobs:
-    test:
+    check:
         runs-on: ubuntu-latest
+        timeout-minutes: 15
         steps:
-            - uses: actions/checkout@v7
-            - uses: oven-sh/setup-bun@v2
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+            - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+              with:
+                  bun-version-file: package.json
             - run: bun install --frozen-lockfile
+            - run: bun run format:check
             - run: bun run lint
             - run: bun run typecheck
+            # The plugin tests import dist/plugin.js, so the package has to be
+            # built first — dist/ is gitignored and absent on a fresh checkout.
             - run: bun run build
             - run: bun run test
+            - run: bun run audit
+            # The docs site is its own workspace with its own lockfile.
+            - name: Docs site
+              working-directory: site
+              run: |
+                  bun install --frozen-lockfile
+                  bun run lint
+                  bun run build
+                  bun run audit
+            - name: actionlint
+              run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667 -color
