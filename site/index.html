@@ -7,11 +7,13 @@
     <!--
       The static host sends no security headers, so the policy lives here. Inline
       style attributes come from Radix (slider positioning, hidden form inputs);
-      data: fonts are the small font subsets Vite inlines.
+      data: fonts are the small font subsets Vite inlines. Cloudflare injects its
+      Web Analytics beacon at the edge, which loads from and reports to
+      cloudflareinsights.com.
     -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+      content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none'"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>tailwind-hitslop — invisible expanded touch targets</title>
