@@ -8,9 +8,12 @@
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
+        "test": "vitest run",
         "audit": "bun audit --audit-level=high"
     },
     "dependencies": {
+        "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+        "@fontsource-variable/jetbrains-mono": "^5.3.0",
         "@tailwindcss/vite": "^4.3.5",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -25,6 +28,8 @@
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
+        "@testing-library/dom": "^10.4.2",
+        "@types/jsdom": "^30.0.0",
         "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
@@ -34,8 +39,11 @@
         "eslint-plugin-react-hooks": "^7.1.1",
         "eslint-plugin-react-refresh": "^0.5.7",
         "globals": "^17.14.0",
+        "jsdom": "^31.0.1",
         "typescript": "npm:@typescript/typescript6@^6.0.2",
         "typescript-eslint": "^8.72.2",
-        "vite": "^8.3.8"
+        "vite": "^8.3.8",
+        "vite-prerender-plugin": "^0.5.14",
+        "vitest": "^5.1.1"
     }
 }

@@ -1,12 +1,15 @@
 import { Check, Copy, SlidersHorizontal } from 'lucide-react'
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Slider } from '@/components/ui/slider'
 import { Switch } from '@/components/ui/switch'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import SectionHeading from './section-heading'
 
 const SIDES = ['t', 'r', 'b', 'l'] as const
+
+const SIDE_NAMES = { t: 'Top', r: 'Right', b: 'Bottom', l: 'Left' } as const
 
 type Side = (typeof SIDES)[number]
 
@@ -19,7 +22,7 @@ function toClass(prefix: string, px: number) {
 export default function Playground() {
     const [debug, setDebug] = useState(true)
     const [values, setValues] = useState<SideValues>({ t: 8, r: 8, b: 8, l: 8 })
-    const [copied, setCopied] = useState(false)
+    const { copied, copy } = useCopyToClipboard()
 
     const classString = useMemo(() => {
         const { t, r, b, l } = values
@@ -29,12 +32,6 @@ export default function Playground() {
             .map(side => toClass(`hit-slop-${side}`, values[side]))
             .join(' ')
     }, [values])
-
-    const handleCopy = useCallback(async () => {
-        await navigator.clipboard.writeText(classString)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 1500)
-    }, [classString])
 
     return (
         <section className='mx-auto max-w-4xl px-6 py-20'>
@@ -52,11 +49,13 @@ export default function Playground() {
                                 step={4}
                                 value={[values[side]]}
                                 className='flex-1'
+                                aria-label={`${SIDE_NAMES[side]} slop`}
+                                name={`slop-${side}`}
                                 onValueChange={([next]) =>
                                     setValues(current => ({ ...current, [side]: next }))
                                 }
                             />
-                            <span className='w-12 text-right font-mono text-zinc-500'>{values[side]}px</span>
+                            <span className='w-12 text-right font-mono text-zinc-400'>{values[side]}px</span>
                         </div>
                     ))}
                     <label className='flex cursor-pointer items-center gap-3 pt-1 text-sm text-zinc-400'>
@@ -66,6 +65,7 @@ export default function Playground() {
                 </div>
                 <Card className='relative grid min-h-48 min-w-56 place-items-center border-dashed border-zinc-800 bg-zinc-900/40 ring-0'>
                     <button
+                        type='button'
                         className={`rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-blue-400 active:scale-90 active:bg-blue-600 ${classString} ${debug ? 'hit-slop-debug' : ''}`}
                     >
                         tap me
@@ -78,7 +78,8 @@ export default function Playground() {
                     variant='ghost'
                     size='icon-sm'
                     className='hit-slop-2 text-zinc-400 transition-all hover:text-zinc-100 active:scale-90'
-                    onClick={handleCopy}
+                    aria-label={copied ? 'Copied' : 'Copy classes'}
+                    onClick={() => void copy(classString)}
                 >
                     {copied ? <Check className='text-blue-400' /> : <Copy />}
                 </Button>

@@ -31,7 +31,7 @@ export default function Gotchas() {
                         key={gotcha.title}
                         className='relative gap-3 border-zinc-800 bg-zinc-900/40 ring-0 transition-colors hover:border-zinc-700'
                     >
-                        <span className='pointer-events-none absolute top-3 right-4 font-mono text-lg leading-none text-zinc-700 select-none'>+</span>
+                        <span aria-hidden='true' className='pointer-events-none absolute top-3 right-4 font-mono text-lg leading-none text-zinc-700 select-none'>+</span>
                         <CardHeader>
                             <CardTitle className='text-zinc-200'>{gotcha.title}</CardTitle>
                         </CardHeader>

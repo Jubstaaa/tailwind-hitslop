@@ -40,7 +40,7 @@ function TapPanel({ accent = false, slopClassName = '', title }: TapPanelProps) 
                 <Button
                     variant='ghost'
                     size='xs'
-                    className='hit-slop-2 gap-1.5 font-mono text-zinc-500 transition-all hover:text-zinc-200 active:scale-90'
+                    className='hit-slop-2 gap-1.5 font-mono text-zinc-400 transition-all hover:text-zinc-200 active:scale-90'
                     onClick={handleReset}
                 >
                     <RotateCcw size={12} />
@@ -51,12 +51,14 @@ function TapPanel({ accent = false, slopClassName = '', title }: TapPanelProps) 
                 {Array.from({ length: 14 }, (_, index) => (
                     <button
                         key={index}
+                        type='button'
+                        aria-label={`Dot ${index + 1}`}
                         className={`size-3 cursor-crosshair rounded-full bg-zinc-600 transition-all duration-100 hover:scale-125 hover:bg-blue-400 active:scale-150 active:bg-blue-300 active:ring-4 active:ring-blue-400/30 ${slopClassName}`}
                         onClick={handleHit}
                     />
                 ))}
             </div>
-            <p className='mt-7 font-mono text-sm text-zinc-500'>
+            <p className='mt-7 font-mono text-sm text-zinc-400' aria-live='polite'>
                 {total === 0
                     ? 'tap the dots as fast as you can'
                     : `${hits} hits · ${misses} misses · ${Math.round((hits / total) * 100)}% accuracy`}

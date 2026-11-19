@@ -1,7 +1,8 @@
 import { Check, Copy, Terminal } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import SectionHeading from './section-heading'
 
 const TABS = [
@@ -19,15 +20,7 @@ const TABS = [
 
 export default function InstallTabs() {
     const [active, setActive] = useState<(typeof TABS)[number]['id']>('bun')
-    const [copied, setCopied] = useState(false)
-
-    const current = TABS.find(tab => tab.id === active)!
-
-    const handleCopy = useCallback(async () => {
-        await navigator.clipboard.writeText(current.code)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 1500)
-    }, [current.code])
+    const { copied, copy } = useCopyToClipboard()
 
     return (
         <section className='mx-auto max-w-4xl px-6 py-20'>
@@ -51,7 +44,8 @@ export default function InstallTabs() {
                                 variant='ghost'
                                 size='icon-sm'
                                 className='hit-slop-2 absolute top-3 right-3 text-zinc-400 transition-all hover:text-zinc-100 active:scale-90'
-                                onClick={handleCopy}
+                                aria-label={copied ? 'Copied' : `Copy the ${tab.label} install snippet`}
+                                onClick={() => void copy(tab.code)}
                             >
                                 {copied ? <Check className='text-blue-400' /> : <Copy />}
                             </Button>

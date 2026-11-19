@@ -27,8 +27,8 @@ export default function ApiReference() {
                     </div>
                 ))}
             </div>
-            <p className='mt-4 text-sm text-zinc-500'>
-                Optional theme tokens: define <code className='rounded bg-zinc-800 px-1 py-0.5 font-mono'>--hit-slop-row: 6px</code> in <code className='rounded bg-zinc-800 px-1 py-0.5 font-mono'>@theme</code> and <code className='rounded bg-zinc-800 px-1 py-0.5 font-mono'>hit-slop-row</code> exists.
+            <p className='mt-4 text-sm text-zinc-400'>
+                Optional theme tokens: define <code className='rounded bg-zinc-800 px-1 py-0.5 font-mono text-zinc-300'>--hit-slop-row: 6px</code> in <code className='rounded bg-zinc-800 px-1 py-0.5 font-mono text-zinc-300'>@theme</code> and <code className='rounded bg-zinc-800 px-1 py-0.5 font-mono text-zinc-300'>hit-slop-row</code> exists.
             </p>
         </section>
     )
