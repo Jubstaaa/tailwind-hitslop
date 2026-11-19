@@ -40,7 +40,7 @@
     },
     "scripts": {
         "build": "tsc -p tsconfig.build.json && cp index.css dist/",
-        "test": "vitest run",
+        "test": "vitest run --dir test",
         "typecheck": "tsc --noEmit",
         "lint": "eslint .",
         "format": "prettier --write .",
