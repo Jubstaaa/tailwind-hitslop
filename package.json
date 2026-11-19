@@ -1,6 +1,7 @@
 {
     "name": "tailwind-hitslop",
     "version": "0.2.2",
+    "packageManager": "bun@1.4.4",
     "description": "Hit-slop utilities for Tailwind CSS v4 (and v3 via plugin) — invisible expanded touch targets, like React Native's hitSlop.",
     "license": "MIT",
     "author": "İlker Balcılar",
@@ -40,7 +41,8 @@
         "typecheck": "tsc --noEmit",
         "lint": "eslint .",
         "format": "prettier --write .",
-        "format:check": "prettier --check ."
+        "format:check": "prettier --check .",
+        "audit": "bun audit --audit-level=high"
     },
     "peerDependencies": {
         "tailwindcss": "^3.0.0 || ^4.0.0"
