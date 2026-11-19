@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { compile } from '@tailwindcss/node'
 import { describe, expect, it } from 'vitest'
+import { rule } from './css-rule'
 
 const plugin = readFileSync(new URL('../index.css', import.meta.url), 'utf8')
 
@@ -10,20 +11,6 @@ async function compileWith(candidates: string[], extraCss = '') {
         onDependency: () => {},
     })
     return build(candidates)
-}
-
-function rule(css: string, selector: string) {
-    const start = css.indexOf(`${selector} {`)
-    if (start === -1) return null
-    const open = css.indexOf('{', start)
-    let depth = 1
-    let i = open + 1
-    while (depth > 0 && i < css.length) {
-        if (css[i] === '{') depth++
-        if (css[i] === '}') depth--
-        i++
-    }
-    return css.slice(start, i)
 }
 
 describe('bare hit-slop', () => {
