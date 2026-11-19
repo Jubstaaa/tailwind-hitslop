@@ -28,6 +28,11 @@ jobs:
             - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
               with:
                   bun-version-file: package.json
+            # Same Node the CI check built the site with, so the release is the
+            # build that was verified.
+            - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+              with:
+                  node-version: 26
             # The docs site is its own workspace with its own lockfile; the root
             # package is the published library and is not involved in the deploy.
             - name: Build docs site

@@ -43,7 +43,8 @@ module.exports = {
 ```
 
 Same package name on both — the export map resolves the CSS for `@import` and the
-plugin for `require`. Every utility below works identically on either version.
+plugin for `require`. Every utility in the table below works identically on
+either version; the two small differences are noted where they apply.
 
 ## Why
 
@@ -88,6 +89,10 @@ Define tokens in the `--hit-slop-*` namespace and matching classes appear:
 
 No tokens defined → no named classes generated. Numbers and arbitrary values
 always work.
+
+Theme tokens are read by the CSS import (`@import 'tailwind-hitslop'`) only. The
+plugin path (Tailwind v3, or `@plugin` on v4) takes its values from your
+`theme.spacing` instead, which also gives it `hit-slop-px`.
 
 ### Touch-first setup (optional)
 

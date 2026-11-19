@@ -1,4 +1,0 @@
-{
-    "buildCommand": "cd site && bun install && bun run build",
-    "outputDirectory": "site/dist"
-}
