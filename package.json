@@ -35,6 +35,9 @@
     "files": [
         "dist"
     ],
+    "engines": {
+        "node": ">=22"
+    },
     "scripts": {
         "build": "tsc -p tsconfig.build.json && cp index.css dist/",
         "test": "vitest run",
@@ -65,14 +68,15 @@
     "devDependencies": {
         "@eslint/js": "^10.0.0",
         "@tailwindcss/node": "^4.3.0",
-        "@types/node": "^24.0.0",
+        "@types/node": "^22",
+        "@typescript/native": "npm:typescript@^7.0.2",
         "eslint": "^10.3.0",
         "eslint-config-prettier": "^10.1.0",
         "globals": "^17.0.0",
         "postcss": "^8.5.0",
         "prettier": "^3.4.0",
         "tailwindcss-v3": "npm:tailwindcss@3.0.0",
-        "typescript": "^6.0.3",
+        "typescript": "npm:@typescript/typescript6@^6.0.2",
         "typescript-eslint": "^8.59.0",
         "vitest": "^5.1.0"
     }

@@ -1,11 +1,31 @@
 version: 2
 updates:
     - package-ecosystem: bun
-      directories: [/, /site]
+      directory: /
       schedule:
           interval: weekly
       # Wait a week before proposing a new release: compromised versions are
       # usually caught and pulled within days.
+      cooldown:
+          default-days: 7
+      groups:
+          tailwind:
+              patterns: ['tailwindcss', '@tailwindcss/*']
+          eslint:
+              patterns: ['eslint', '@eslint/*']
+      ignore:
+          # The `typescript` key is the TypeScript 6 API alias that
+          # typescript-eslint needs; TypeScript 7 arrives through
+          # @typescript/native, which is not ignored.
+          - dependency-name: typescript
+            update-types: ['version-update:semver-major']
+          # Tracks engines.node (the oldest supported LTS), not the newest Node.
+          - dependency-name: '@types/node'
+            update-types: ['version-update:semver-major']
+    - package-ecosystem: bun
+      directory: /site
+      schedule:
+          interval: weekly
       cooldown:
           default-days: 7
       groups:
@@ -19,11 +39,10 @@ updates:
           eslint:
               patterns: ['eslint', '@eslint/*']
       ignore:
-          # typescript-eslint does not support TypeScript 7 yet.
+          # The `typescript` key is the TypeScript 6 API alias that
+          # typescript-eslint needs; TypeScript 7 arrives through
+          # @typescript/native, which is not ignored.
           - dependency-name: typescript
-            versions: ['>=7']
-          # Must match the Node.js major the code runs on, not the newest one.
-          - dependency-name: '@types/node'
             update-types: ['version-update:semver-major']
     - package-ecosystem: github-actions
       directory: /
