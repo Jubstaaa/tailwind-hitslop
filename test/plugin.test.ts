@@ -4,6 +4,7 @@ import postcss from 'postcss'
 import { describe, expect, it } from 'vitest'
 import tailwind3 from 'tailwindcss-v3'
 import hitslop from '../plugin'
+import { rule } from './css-rule'
 
 // v4 @plugin loads the compiled artifact; `bun run build` emits it before tests run.
 const pluginPath = fileURLToPath(new URL('../dist/plugin.js', import.meta.url))
@@ -27,26 +28,6 @@ async function compileV4(candidates: string[]) {
     return build(candidates)
 }
 
-function rule(css: string, selector: string) {
-    const start = css.indexOf(`${selector} {`)
-    if (start === -1) return null
-    const open = css.indexOf('{', start)
-    let depth = 1
-    let i = open + 1
-    while (depth > 0 && i < css.length) {
-        if (css[i] === '{') depth++
-        if (css[i] === '}') depth--
-        i++
-    }
-    return css.slice(start, i)
-}
-
-// v3 flattens nested `&::before` into a separate `.x::before {}` rule; v4 keeps
-// it nested inside `.x {}`. Return whichever holds the pseudo-element declarations.
-function area(css: string, base: string, pseudo: string) {
-    return rule(css, `${base}${pseudo}`) ?? rule(css, base)
-}
-
 const engines: Array<[string, (c: string[]) => Promise<string>]> = [
     ['v3', compileV3],
     ['v4', compileV4],
@@ -63,7 +44,7 @@ describe.each(engines)('hit-slop plugin under tailwind %s', (_label, build) => {
     })
 
     it('renders the ::before hit area reading the side vars', async () => {
-        const a = area(await build(['hit-slop']), '.hit-slop', '::before')
+        const a = rule(await build(['hit-slop']), '.hit-slop')
         expect(a).toContain('top: calc(var(--tw-hit-slop-t, 0px) * -1)')
         expect(a).toContain('border-radius: inherit')
         expect(a).toContain('pointer-events: inherit')
@@ -102,8 +83,8 @@ describe.each(engines)('hit-slop plugin under tailwind %s', (_label, build) => {
     it('after family renders via ::after with its own private vars', async () => {
         const css = await build(['hit-slop-after-2'])
         expect(rule(css, '.hit-slop-after-2')).toContain('--tw-hit-slop-after-t: 0.5rem')
-        expect(area(css, '.hit-slop-after-2', '::after')).toContain('top: calc(var(--tw-hit-slop-after-t, 0px) * -1)')
-        expect(rule(css, '.hit-slop-after-2::before')).toBeNull()
+        expect(rule(css, '.hit-slop-after-2')).toContain('top: calc(var(--tw-hit-slop-after-t, 0px) * -1)')
+        expect(rule(css, '.hit-slop-after-2')).not.toContain('::before')
     })
 
     it('after family coexists with the before family without var clobbering', async () => {
@@ -115,12 +96,12 @@ describe.each(engines)('hit-slop plugin under tailwind %s', (_label, build) => {
     })
 
     it('debug utilities paint the matching pseudo element', async () => {
-        const before = area(await build(['hit-slop-debug']), '.hit-slop-debug', '::before')
+        const before = rule(await build(['hit-slop-debug']), '.hit-slop-debug')
         expect(before).toContain('outline')
         expect(before).toContain('dashed')
         const css = await build(['hit-slop-after-debug'])
-        expect(area(css, '.hit-slop-after-debug', '::after')).toContain('outline')
-        expect(rule(css, '.hit-slop-after-debug::before')).toBeNull()
+        expect(rule(css, '.hit-slop-after-debug')).toContain('outline')
+        expect(rule(css, '.hit-slop-after-debug')).not.toContain('::before')
     })
 
     it('emits nothing for negative candidates', async () => {

@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { compile } from '@tailwindcss/node'
 import { describe, expect, it } from 'vitest'
+import { rule } from './css-rule'
 
 // index.css (the v4 pure-CSS path) and plugin.ts (the v3/@plugin path) are two
 // implementations of the same utilities. This test locks them together so they
@@ -23,20 +24,6 @@ const fromPlugin = (c: string[]) => compileWith(`@plugin '${pluginPath}';`, c)
 
 function escapeClass(cand: string) {
     return cand.replace(/[.[\]]/g, (ch) => `\\${ch}`)
-}
-
-function rule(css: string, selector: string) {
-    const start = css.indexOf(`${selector} {`)
-    if (start === -1) return ''
-    const open = css.indexOf('{', start)
-    let depth = 1
-    let i = open + 1
-    while (depth > 0 && i < css.length) {
-        if (css[i] === '{') depth++
-        if (css[i] === '}') depth--
-        i++
-    }
-    return css.slice(start, i)
 }
 
 // Structural fingerprint that ignores value representation (v4 CSS emits
