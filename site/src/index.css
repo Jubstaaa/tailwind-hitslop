@@ -2,6 +2,8 @@
 @import '../../index.css';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
+@import '@fontsource-variable/bricolage-grotesque/opsz.css';
+@import '@fontsource-variable/jetbrains-mono';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -10,8 +12,8 @@
 @source inline('hit-slop-debug');
 
 @theme {
-    --font-display: 'Bricolage Grotesque', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-display: 'Bricolage Grotesque Variable', sans-serif;
+    --font-mono: 'JetBrains Mono Variable', monospace;
 }
 
 @theme inline {

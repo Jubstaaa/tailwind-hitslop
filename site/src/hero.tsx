@@ -2,7 +2,13 @@ import { Ellipsis, Heart, RotateCw, Star, X } from 'lucide-react'
 import { useState } from 'react'
 import { Switch } from '@/components/ui/switch'
 
-const ICONS = [X, Ellipsis, Star, RotateCw, Heart]
+const ICONS = [
+    { Icon: X, label: 'Close' },
+    { Icon: Ellipsis, label: 'More' },
+    { Icon: Star, label: 'Star' },
+    { Icon: RotateCw, label: 'Refresh' },
+    { Icon: Heart, label: 'Like' },
+]
 
 export default function Hero() {
     const [debug, setDebug] = useState(false)
@@ -16,18 +22,22 @@ export default function Hero() {
                     <span className='size-1.5 rounded-full bg-blue-500' />
                     Tailwind v3 &amp; v4 · pure CSS
                 </span>
-                <h1 className='animate-rise mt-7 font-display text-5xl font-extrabold tracking-tight text-balance sm:text-6xl [animation-delay:80ms]'>
+                {/* The heading and lede are the LCP candidates: they paint at once instead of
+                    fading in, so the largest paint is not held back by the entrance animation. */}
+                <h1 className='mt-7 font-display text-5xl font-extrabold tracking-tight text-balance sm:text-6xl'>
                     tailwind-<span className='text-blue-500'>hitslop</span>
                 </h1>
-                <p className='animate-rise mx-auto mt-5 max-w-xl text-lg leading-relaxed text-zinc-400 text-balance [animation-delay:160ms]'>
+                <p className='mx-auto mt-5 max-w-xl text-lg leading-relaxed text-zinc-400 text-balance'>
                     Invisible expanded touch targets for Tailwind CSS v3 &amp; v4. Visual size stays the same — the tap area grows. Like React Native's{' '}
                     <code className='rounded bg-zinc-800/80 px-1.5 py-0.5 font-mono text-sm text-blue-300'>hitSlop</code>.
                 </p>
                 <div className='animate-rise relative mx-auto mt-12 flex max-w-md items-center justify-center gap-7 rounded-2xl border border-zinc-800 bg-zinc-900/40 px-8 py-12 [animation-delay:240ms]'>
                     <CornerMarks />
-                    {ICONS.map((Icon, index) => (
+                    {ICONS.map(({ Icon, label }) => (
                         <button
-                            key={index}
+                            key={label}
+                            type='button'
+                            aria-label={label}
                             className={`hit-slop-3 grid size-6 place-items-center rounded-md bg-zinc-800 text-zinc-300 transition-all duration-150 hover:bg-blue-500 hover:text-white active:scale-90 active:bg-blue-400 ${debug ? 'hit-slop-debug' : ''}`}
                         >
                             <Icon size={15} strokeWidth={2.25} />
@@ -38,7 +48,7 @@ export default function Hero() {
                     <Switch checked={debug} onCheckedChange={setDebug} />
                     <span>
                         reveal hit areas{' '}
-                        <code className='font-mono text-xs text-zinc-500'>(hit-slop-debug)</code>
+                        <code className='font-mono text-xs text-zinc-400'>(hit-slop-debug)</code>
                     </span>
                 </label>
             </div>

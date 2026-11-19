@@ -45,6 +45,7 @@ jobs:
               run: |
                   bun install --frozen-lockfile
                   bun run lint
+                  bun run test
                   bun run build
                   bun run audit
             - name: actionlint

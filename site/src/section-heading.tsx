@@ -11,7 +11,7 @@ interface SectionHeadingProps {
 export default function SectionHeading({ index, icon: Icon, title, children }: SectionHeadingProps) {
     return (
         <div className='mb-10'>
-            <span className='inline-flex items-center gap-2 font-mono text-xs tracking-widest text-blue-500/80 uppercase'>
+            <span className='inline-flex items-center gap-2 font-mono text-xs tracking-widest text-blue-400 uppercase'>
                 <Icon size={13} strokeWidth={2.5} />
                 {index}
             </span>
