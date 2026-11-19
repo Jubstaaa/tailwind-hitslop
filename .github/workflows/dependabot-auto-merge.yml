@@ -26,6 +26,9 @@ jobs:
             # A merge made with GITHUB_TOKEN starts no workflows, so instead of --auto
             # this waits for the required checks, merges, then dispatches the deploy
             # (workflow_dispatch is the one event GITHUB_TOKEN may start).
+            # --repo matters: there is no checkout here, and without it `gh pr merge`
+            # tries to tidy up a local branch after merging, fails, and the deploy
+            # dispatch below never runs.
 
             - if: >-
                   (steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
@@ -40,5 +43,5 @@ jobs:
                   # Let the required checks register before watching them.
                   sleep 30
                   gh pr checks "$PR_URL" --required --watch --fail-fast --interval 20
-                  gh pr merge --merge "$PR_URL"
-                  gh workflow run deploy.yml --ref "$BASE"
+                  gh pr merge --merge --repo "$GITHUB_REPOSITORY" "$PR_URL"
+                  gh workflow run deploy.yml --repo "$GITHUB_REPOSITORY" --ref "$BASE"
