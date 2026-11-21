@@ -9,12 +9,15 @@ on:
 
 jobs:
     publish:
+        # Trusted publishing: npm accepts this job's OIDC token for this
+        # workflow and environment only, so no long-lived npm token exists. The
+        # environment only admits v* tags, which only an admin can create.
+        environment: release
         runs-on: ubuntu-latest
         permissions:
             # Writes the GitHub release after publishing.
             contents: write
-            # Required for npm provenance, which attests the tarball was built
-            # from this public repo at this commit.
+            # Trusted publishing and provenance both sign with this job's OIDC token.
             id-token: write
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -23,7 +26,6 @@ jobs:
             - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 24
-                  registry-url: https://registry.npmjs.org
             - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
               with:
                   bun-version-file: package.json
@@ -58,8 +60,6 @@ jobs:
             # the step above proved the version did not exist beforehand, the
             # registry serving it now means the publish did land.
             - name: Publish
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
               run: |
                   VER="$(node -p "require('./package.json').version")"
                   if npm publish --access public --provenance; then exit 0; fi
