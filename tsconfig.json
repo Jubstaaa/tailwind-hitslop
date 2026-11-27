@@ -1,10 +1,17 @@
 {
-    "extends": "@jubstaaa/config/tsconfig/node",
+    "extends": "@jubstaa/config/tsconfig/node",
     "compilerOptions": {
         "types": ["node"],
         "module": "preserve",
         "moduleResolution": "bundler",
         "verbatimModuleSyntax": false
     },
-    "include": ["test", "plugin.ts", "eslint.config.mjs", "prettier.config.mjs"]
+    "include": [
+        "prettier.config.mts",
+        "eslint.config.mts",
+        "test",
+        "plugin.ts",
+        "eslint.config.mjs",
+        "prettier.config.mjs"
+    ]
 }
