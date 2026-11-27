@@ -1,34 +1,43 @@
-import { fileURLToPath } from 'node:url'
 import { compile } from '@tailwindcss/node'
+import { fileURLToPath } from 'node:url'
 import postcss from 'postcss'
-import { describe, expect, it } from 'vitest'
 import tailwind3 from 'tailwindcss-v3'
+import { describe, expect, it } from 'vitest'
+
 import hitslop from '../plugin'
 import { rule } from './css-rule'
 
-// v4 @plugin loads the compiled artifact; `bun run build` emits it before tests run.
 const pluginPath = fileURLToPath(new URL('../dist/plugin.js', import.meta.url))
 
 async function compileV3(candidates: string[]) {
     const result = await postcss([
         tailwind3({
-            content: [{ raw: candidates.map((c) => `<div class="${c}"></div>`).join('') }],
+            content: [
+                {
+                    raw: candidates
+                        .map(c => `<div class="${c}"></div>`)
+                        .join(''),
+                },
+            ],
             corePlugins: { preflight: false },
             plugins: [hitslop],
         }),
     ]).process('@tailwind utilities;', { from: undefined })
-    return result.css as string
+    return result.css
 }
 
 async function compileV4(candidates: string[]) {
-    const { build } = await compile(`@import 'tailwindcss';\n@plugin '${pluginPath}';`, {
-        base: process.cwd(),
-        onDependency: () => {},
-    })
+    const { build } = await compile(
+        `@import 'tailwindcss';\n@plugin '${pluginPath}';`,
+        {
+            base: process.cwd(),
+            onDependency: () => {},
+        }
+    )
     return build(candidates)
 }
 
-const engines: Array<[string, (c: string[]) => Promise<string>]> = [
+const engines: [string, (c: string[]) => Promise<string>][] = [
     ['v3', compileV3],
     ['v4', compileV4],
 ]
@@ -82,8 +91,12 @@ describe.each(engines)('hit-slop plugin under tailwind %s', (_label, build) => {
 
     it('after family renders via ::after with its own private vars', async () => {
         const css = await build(['hit-slop-after-2'])
-        expect(rule(css, '.hit-slop-after-2')).toContain('--tw-hit-slop-after-t: 0.5rem')
-        expect(rule(css, '.hit-slop-after-2')).toContain('top: calc(var(--tw-hit-slop-after-t, 0px) * -1)')
+        expect(rule(css, '.hit-slop-after-2')).toContain(
+            '--tw-hit-slop-after-t: 0.5rem'
+        )
+        expect(rule(css, '.hit-slop-after-2')).toContain(
+            'top: calc(var(--tw-hit-slop-after-t, 0px) * -1)'
+        )
         expect(rule(css, '.hit-slop-after-2')).not.toContain('::before')
     })
 

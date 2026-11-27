@@ -1,12 +1,9 @@
+import { compile } from '@tailwindcss/node'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { compile } from '@tailwindcss/node'
 import { describe, expect, it } from 'vitest'
-import { rule } from './css-rule'
 
-// index.css (the v4 pure-CSS path) and plugin.ts (the v3/@plugin path) are two
-// implementations of the same utilities. This test locks them together so they
-// can't drift — if one gains/loses a utility or wires a side differently, it fails.
+import { rule } from './css-rule'
 
 const indexCss = readFileSync(new URL('../index.css', import.meta.url), 'utf8')
 const pluginPath = fileURLToPath(new URL('../dist/plugin.js', import.meta.url))
@@ -23,18 +20,20 @@ const fromCss = (c: string[]) => compileWith(indexCss, c)
 const fromPlugin = (c: string[]) => compileWith(`@plugin '${pluginPath}';`, c)
 
 function escapeClass(cand: string) {
-    return cand.replace(/[.[\]]/g, (ch) => `\\${ch}`)
+    return cand.replace(/[.[\]]/g, ch => `\\${ch}`)
 }
 
-// Structural fingerprint that ignores value representation (v4 CSS emits
-// `calc(var(--spacing) * n)`, the plugin emits the resolved `n rem`) and captures
-// what actually defines a utility: whether it's generated, which side vars it
-// sets, and which pseudo-element renders the hit area.
 function signature(css: string, cand: string) {
     const r = rule(css, `.${escapeClass(cand)}`)
-    const sides = [...r.matchAll(/--tw-hit-slop(?:-after)?-([trbl]):/g)].map((m) => m[1])
-    const pseudo = r.includes('::after') ? '::after' : r.includes('::before') ? '::before' : null
-    return { generated: r !== '', sides: [...new Set(sides)].sort(), pseudo }
+    const sides = [...r.matchAll(/--tw-hit-slop(?:-after)?-([trbl]):/g)].map(
+        m => m[1]
+    )
+    const pseudo = r.includes('::after')
+        ? '::after'
+        : r.includes('::before')
+          ? '::before'
+          : null
+    return { generated: r !== '', pseudo, sides: [...new Set(sides)].sort() }
 }
 
 const CANDIDATES = [
@@ -70,7 +69,9 @@ describe('index.css and plugin.ts stay in sync', () => {
             const b = signature(plugin, cand)
             expect(a.generated, `${cand}: missing from index.css`).toBe(true)
             expect(b.generated, `${cand}: missing from plugin`).toBe(true)
-            expect(b, `${cand}: diverges between index.css and plugin`).toEqual(a)
+            expect(b, `${cand}: diverges between index.css and plugin`).toEqual(
+                a
+            )
         }
     })
 })

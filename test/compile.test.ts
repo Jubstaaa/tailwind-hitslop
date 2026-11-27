@@ -1,15 +1,19 @@
-import { readFileSync } from 'node:fs'
 import { compile } from '@tailwindcss/node'
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
+
 import { rule } from './css-rule'
 
 const plugin = readFileSync(new URL('../index.css', import.meta.url), 'utf8')
 
 async function compileWith(candidates: string[], extraCss = '') {
-    const { build } = await compile(`@import 'tailwindcss';\n${extraCss}\n${plugin}`, {
-        base: process.cwd(),
-        onDependency: () => {},
-    })
+    const { build } = await compile(
+        `@import 'tailwindcss';\n${extraCss}\n${plugin}`,
+        {
+            base: process.cwd(),
+            onDependency: () => {},
+        }
+    )
     return build(candidates)
 }
 
@@ -57,11 +61,14 @@ describe('functional hit-slop-*', () => {
     it('drops the unresolved value arms (no duplicate declarations)', async () => {
         const css = await compileWith(['hit-slop-2'])
         const r = rule(css, '.hit-slop-2')
-        expect(r!.match(/--tw-hit-slop-t:/g)).toHaveLength(1)
+        expect(r.match(/--tw-hit-slop-t:/g)).toHaveLength(1)
     })
 
     it('generates classes from --hit-slop-* theme tokens', async () => {
-        const css = await compileWith(['hit-slop-row'], '@theme { --hit-slop-row: 6px; }')
+        const css = await compileWith(
+            ['hit-slop-row'],
+            '@theme { --hit-slop-row: 6px; }'
+        )
         const r = rule(css, '.hit-slop-row')
         expect(r).toContain('var(--hit-slop-row)')
     })
@@ -105,8 +112,12 @@ describe('directional and axis utilities', () => {
         ]) {
             const css = await compileWith([candidate])
             const r = rule(css, `.${candidate}`)
-            expect(r, candidate).toContain('top: calc(var(--tw-hit-slop-t, 0px) * -1)')
-            expect(r, candidate).toContain('left: calc(var(--tw-hit-slop-l, 0px) * -1)')
+            expect(r, candidate).toContain(
+                'top: calc(var(--tw-hit-slop-t, 0px) * -1)'
+            )
+            expect(r, candidate).toContain(
+                'left: calc(var(--tw-hit-slop-l, 0px) * -1)'
+            )
         }
     })
 })
@@ -126,15 +137,27 @@ describe('hit-slop-after-* fallback family', () => {
         const before = rule(css, '.hit-slop-2')
         const after = rule(css, '.hit-slop-after-4')
         expect(before).toContain('--tw-hit-slop-t: calc(var(--spacing) * 2)')
-        expect(after).toContain('--tw-hit-slop-after-t: calc(var(--spacing) * 4)')
+        expect(after).toContain(
+            '--tw-hit-slop-after-t: calc(var(--spacing) * 4)'
+        )
         expect(after).not.toContain('--tw-hit-slop-t:')
     })
 
     it('ships bare default and directional forms', async () => {
-        const css = await compileWith(['hit-slop-after', 'hit-slop-after-x-1', 'hit-slop-after-t-[6px]'])
-        expect(rule(css, '.hit-slop-after')).toContain('--tw-hit-slop-after-t: calc(var(--spacing) * 2)')
-        expect(rule(css, '.hit-slop-after-x-1')).toContain('--tw-hit-slop-after-l: calc(var(--spacing) * 1)')
-        expect(rule(css, '.hit-slop-after-t-\\[6px\\]')).toContain('--tw-hit-slop-after-t: 6px')
+        const css = await compileWith([
+            'hit-slop-after',
+            'hit-slop-after-x-1',
+            'hit-slop-after-t-[6px]',
+        ])
+        expect(rule(css, '.hit-slop-after')).toContain(
+            '--tw-hit-slop-after-t: calc(var(--spacing) * 2)'
+        )
+        expect(rule(css, '.hit-slop-after-x-1')).toContain(
+            '--tw-hit-slop-after-l: calc(var(--spacing) * 1)'
+        )
+        expect(rule(css, '.hit-slop-after-t-\\[6px\\]')).toContain(
+            '--tw-hit-slop-after-t: 6px'
+        )
     })
 })
 

@@ -31,7 +31,8 @@ updates:
       groups:
           # react and react-dom refuse to run at different versions.
           react:
-              patterns: ['react', 'react-dom', '@types/react', '@types/react-dom']
+              patterns:
+                  ['react', 'react-dom', '@types/react', '@types/react-dom']
           tailwind:
               patterns: ['tailwindcss', '@tailwindcss/*']
           vite:
