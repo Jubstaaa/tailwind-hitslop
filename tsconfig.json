@@ -1,11 +1,17 @@
 {
+    "extends": "@jubstaaa/config/tsconfig/node",
     "compilerOptions": {
-        "target": "ESNext",
+        "types": [
+            "node"
+        ],
         "module": "preserve",
-        "types": ["node"],
-        "esModuleInterop": true,
-        "strict": true,
-        "skipLibCheck": true
+        "moduleResolution": "bundler",
+        "verbatimModuleSyntax": false
     },
-    "include": ["test"]
+    "include": [
+        "test",
+        "plugin.ts",
+        "eslint.config.mjs",
+        "prettier.config.mjs"
+    ]
 }
