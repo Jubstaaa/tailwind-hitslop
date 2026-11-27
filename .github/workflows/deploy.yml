@@ -51,7 +51,7 @@ jobs:
                   known-hosts: ${{ secrets.DO_KNOWN_HOSTS }}
             # Atomic release: the site switches to the new build in one rename, and
             # goes back to the previous one if it does not answer.
-            - uses: Jubstaaa/deploy-actions/static@1d9b582d7547aa6f02352b655c0721dd5a88071f # v1.3.0
+            - uses: Jubstaaa/deploy-actions/static@233419e4b4936a17bf710cb7038f7dbc23a8a5f5 # v1.4.0
               with:
                   source-dir: site/dist
                   site: hitslop
