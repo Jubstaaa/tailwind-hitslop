@@ -8,7 +8,6 @@ on:
 permissions:
     contents: read
 
-# Never cancel a release halfway through the upload.
 concurrency:
     group: deploy-site
     cancel-in-progress: false
@@ -18,8 +17,6 @@ jobs:
         uses: ./.github/workflows/ci.yml
 
     deploy:
-        # Deploy secrets live in this environment, which only accepts main,
-        # so a workflow on another branch cannot read them.
         environment: Production
         needs: ci
         runs-on: ubuntu-latest
@@ -31,13 +28,9 @@ jobs:
             - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
               with:
                   bun-version-file: package.json
-            # Same Node the CI check built the site with, so the release is the
-            # build that was verified.
             - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 26
-            # The docs site is its own workspace with its own lockfile; the root
-            # package is the published library and is not involved in the deploy.
             - name: Build docs site
               working-directory: site
               run: |
@@ -49,8 +42,6 @@ jobs:
                   user: ${{ secrets.DO_USER }}
                   key: ${{ secrets.DO_SSH_KEY }}
                   known-hosts: ${{ secrets.DO_KNOWN_HOSTS }}
-            # Atomic release: the site switches to the new build in one rename, and
-            # goes back to the previous one if it does not answer.
             - uses: Jubstaaa/deploy-actions/static@1d9b582d7547aa6f02352b655c0721dd5a88071f # v1.3.0
               with:
                   source-dir: site/dist
