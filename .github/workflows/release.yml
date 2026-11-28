@@ -1,7 +1,5 @@
 name: Publish to npm
 
-# Tag-triggered rather than on every push to main: a version number can only be
-# published once, so publishing has to be a deliberate act.
 on:
     push:
         tags: ['v*']
@@ -9,15 +7,10 @@ on:
 
 jobs:
     publish:
-        # Trusted publishing: npm accepts this job's OIDC token for this
-        # workflow and environment only, so no long-lived npm token exists. The
-        # environment only admits v* tags, which only an admin can create.
         environment: release
         runs-on: ubuntu-latest
         permissions:
-            # Writes the GitHub release after publishing.
             contents: write
-            # Trusted publishing and provenance both sign with this job's OIDC token.
             id-token: write
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -32,8 +25,6 @@ jobs:
             - run: bun install --frozen-lockfile
             - run: bun run lint
             - run: bun run typecheck
-            # dist/ is gitignored, so the build has to precede the tests that
-            # import dist/plugin.js — and it is what gets published.
             - run: bun run build
             - run: bun run test
             - run: bun run audit
@@ -45,8 +36,6 @@ jobs:
                   test "$TAG" = "$PKG" || {
                     echo "tag v$TAG does not match package.json $PKG"; exit 1;
                   }
-            # Fail early and clearly on a version that is already out, rather than
-            # discovering it from npm's E403 after the build has run.
             - name: Refuse to republish an existing version
               run: |
                   VER="$(node -p "require('./package.json').version")"
@@ -54,11 +43,6 @@ jobs:
                     echo "tailwind-hitslop@$VER is already published — bump the version"
                     exit 1
                   fi
-            # npm can upload the tarball, sign provenance, and *then* fail the run
-            # with E403 "cannot publish over the previously published versions" from
-            # a duplicate follow-up request — which is what happened on 0.2.2. Since
-            # the step above proved the version did not exist beforehand, the
-            # registry serving it now means the publish did land.
             - name: Publish
               run: |
                   VER="$(node -p "require('./package.json').version")"
@@ -66,8 +50,6 @@ jobs:
                   echo "publish reported failure — checking whether it landed anyway"
                   sleep 10
                   test "$(npm view "tailwind-hitslop@$VER" version 2>/dev/null)" = "$VER"
-            # This used to live in a second tag-triggered workflow (release.yml)
-            # that also ran `npm publish`, so every tag published twice.
             - name: GitHub release
               if: startsWith(github.ref, 'refs/tags/v')
               env:
