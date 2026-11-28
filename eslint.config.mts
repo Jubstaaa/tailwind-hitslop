@@ -1,4 +1,4 @@
-import { library } from '@jubstaaa/config/eslint/library'
+import { library } from '@jubstaa/config/eslint/library'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([

@@ -4,3 +4,4 @@ site
 .claude
 bun.lock
 *.tgz
+CHANGELOG.md
